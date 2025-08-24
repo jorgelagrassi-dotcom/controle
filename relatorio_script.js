@@ -1,4 +1,5 @@
 // Este é o código que busca os dados do Firestore, cria botões de filtro e exibe os relatórios.
+// Esta versão inclui botões para editar e excluir registros.
 
 // Suas credenciais do Firebase (já preenchidas)
 var firebaseConfig = {
@@ -31,6 +32,31 @@ function formatarData(timestamp) {
     if (!timestamp) return 'N/A';
     const data = new Date(timestamp.seconds * 1000);
     return data.toLocaleString('pt-BR');
+}
+
+// **NOVA FUNÇÃO: Excluir um registro do Firestore**
+async function deletarRegistro(docId) {
+    if (confirm("Tem certeza que deseja excluir este registro?")) {
+        try {
+            await db.collection("controles").doc(docId).delete();
+            console.log("Registro excluído com sucesso!");
+        } catch (error) {
+            console.error("Erro ao excluir registro:", error);
+        }
+    }
+}
+
+// **NOVA FUNÇÃO: Adicionar botões de ação a uma linha da tabela**
+function adicionarBotoesDeAcao(linha, docId) {
+    const celulaAcoes = linha.insertCell();
+    celulaAcoes.classList.add('acoes-celula');
+
+    // Botão de Excluir (lixeira)
+    const botaoDeletar = document.createElement('button');
+    botaoDeletar.classList.add('botao-acao', 'deletar');
+    botaoDeletar.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m376-292 124-124 124 124q11 11 28 11t28-11q11-11 11-28t-11-28L556-448l124-124q11-11 11-28t-11-28q-11-11-28-11t-28 11L500-504l-124-124q-11-11-28-11t-28 11q-11 11-11 28t11 28l124 124-124 124q-11 11-11 28t11 28q11 11 28 11t28-11Zm124-212Zm-240 512q-33 0-56.5-23.5T184-240v-520h-40q-17 0-28.5-11.5T104-796q0-17 11.5-28.5T144-836h138q0-11-3-22t-6-20q-11-19-28-36.5t-40-25.5q-15-7-25-11.5T246-960h337q16 0 31.5 5.5t33.5 13.5q15 8 26 21t18 29h-243q-24 0-42 18t-18 42h-31q-17 0-28.5 11.5T324-836h403v520q0 33-23.5 56.5T704-240H260Z"/></svg>`;
+    botaoDeletar.onclick = () => deletarRegistro(docId);
+    celulaAcoes.appendChild(botaoDeletar);
 }
 
 // Função para exibir o relatório de uma disciplina específica
@@ -67,6 +93,7 @@ function exibirRelatorioPorDisciplina(disciplina) {
         linha.insertCell(3).textContent = registro.motivos.join(", ") || 'N/A';
         linha.insertCell(4).textContent = registro.observacao || 'N/A';
         linha.insertCell(5).textContent = formatarData(registro.timestamp);
+        adicionarBotoesDeAcao(linha, registro.docId); // Adiciona os botões de ação
     });
 }
 
@@ -92,6 +119,7 @@ db.collection("controles").orderBy("timestamp", "desc").onSnapshot((querySnapsho
     // 1. Popula o relatório geral e agrupa os dados
     querySnapshot.forEach((doc) => {
         const dados = doc.data();
+        dados.docId = doc.id; // Adiciona o ID do documento aos dados
 
         // Insere a linha na tabela geral
         const linhaGeral = tabelaCorpoGeral.insertRow();
@@ -102,6 +130,7 @@ db.collection("controles").orderBy("timestamp", "desc").onSnapshot((querySnapsho
         linhaGeral.insertCell(4).textContent = dados.motivos.join(", ") || 'N/A';
         linhaGeral.insertCell(5).textContent = dados.observacao || 'N/A';
         linhaGeral.insertCell(6).textContent = formatarData(dados.timestamp);
+        adicionarBotoesDeAcao(linhaGeral, dados.docId); // Adiciona os botões de ação
 
         // Agrupa os dados por disciplina
         if (dados.disciplinas && dados.disciplinas.length > 0) {
