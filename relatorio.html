@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios de Controles</title>
+    <link rel="stylesheet" href="relatorio_style.css">
+
+    <!-- Firebase SDK - As mesmas bibliotecas do outro arquivo -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatório de Controles de Equipamentos</h1>
+        
+        <!-- Contêiner dos botões de filtro por disciplina -->
+        <div id="botoes-disciplinas">
+            <h2>Filtrar por Disciplina</h2>
+            <div class="buttons-container">
+                <!-- Os botões de disciplina serão inseridos aqui pelo JavaScript -->
+            </div>
+            <button id="voltar-geral" class="button-back" style="display:none;">Ver Relatório Geral</button>
+        </div>
+
+        <!-- Relatório Geral (visível por padrão) -->
+        <div id="relatorio-geral">
+            <h2>Relatório Geral</h2>
+            <div class="table-container">
+                <table id="tabela-relatorio" class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Professor</th>
+                            <th>Sala</th>
+                            <th>Data</th>
+                            <th>Disciplinas</th>
+                            <th>Motivos</th>
+                            <th>Observação</th>
+                            <th>Data de Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Os dados do Firestore serão inseridos aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Contêiner para o relatório de uma única disciplina (inicialmente vazio) -->
+        <div id="relatorio-disciplina-unica" style="display:none;">
+            <div class="table-container">
+                <table id="tabela-disciplina-unica" class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Professor</th>
+                            <th>Sala</th>
+                            <th>Data</th>
+                            <th>Motivos</th>
+                            <th>Observação</th>
+                            <th>Data de Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Os dados do Firestore serão inseridos aqui pelo JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <a href="index.html" class="button-back">Voltar para o Formulário</a>
+    </div>
+    <script src="relatorio_script.js"></script>
+</body>
+</html>
