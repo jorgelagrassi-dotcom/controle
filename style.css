@@ -10,6 +10,14 @@ body {
     margin: 0;
 }
 
+.responsive-logo {
+    width: 100%;
+    max-width: 150px; /* Limita o tamanho máximo da imagem */
+    height: auto;
+    display: block; /* Para centralizar a imagem */
+    margin: 0 auto 20px auto; /* Centraliza e adiciona espaço abaixo */
+}
+
 .container {
     background-color: #ffffff;
     padding: 30px;
@@ -159,3 +167,4 @@ button:hover {
         font-size: 1em;
     }
 }
+
