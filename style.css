@@ -11,11 +11,11 @@ body {
 }
 
 .responsive-logo {
-    width: 100%;
-    max-width: 150px; /* Limita o tamanho máximo da imagem */
-    height: auto;
-    display: block; /* Para centralizar a imagem */
-    margin: 0 auto 20px auto; /* Centraliza e adiciona espaço abaixo */
+    width: 100%; /* Faz a imagem ocupar 100% da largura de seu contêiner */
+    max-width: 150px; /* Limita a largura máxima da imagem para não ficar muito grande em telas maiores */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Garante que a imagem se comporte como um bloco */
+    margin: 0 auto 20px auto; /* Centraliza a imagem e adiciona espaço abaixo dela */
 }
 
 .container {
@@ -167,4 +167,5 @@ button:hover {
         font-size: 1em;
     }
 }
+
 
