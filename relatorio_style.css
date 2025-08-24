@@ -121,25 +121,51 @@ h3 {
     background-color: #d4d4d4;
 }
 
-/* REGRAS DE RESPONSIVIDADE */
+/* NOVO: Estilos para os botões de ação (excluir/editar) */
+.acoes-celula {
+    white-space: nowrap; /* Impede que os botões quebrem a linha */
+}
+
+.botao-acao {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 5px;
+}
+
+.botao-acao svg {
+    fill: #dc3545; /* Cor vermelha para a lixeira */
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.botao-acao:hover svg {
+    transform: scale(1.1); /* Efeito de escala ao passar o mouse */
+}
+
+/* INÍCIO: NOVAS REGRAS DE RESPONSIVIDADE PARA TELAS PEQUENAS */
 @media (max-width: 768px) {
     .container {
         padding: 15px;
     }
 
     h1 {
-        font-size: 1.2em;
+        font-size: 1.2em; /* Diminui o tamanho da fonte do título principal */
     }
 
     h2 {
-        font-size: 1.1em;
+        font-size: 1.1em; /* Diminui o tamanho da fonte dos subtítulos */
     }
 
+    /* Ajusta a fonte e o padding das células da tabela para ocupar menos espaço */
     .styled-table th, .styled-table td {
         padding: 8px;
         font-size: 0.8em;
     }
 
+    /* Otimiza a visualização dos botões para telas menores */
     .buttons-container {
         gap: 8px;
     }
@@ -149,3 +175,4 @@ h3 {
         padding: 8px 12px;
     }
 }
+/* FIM: NOVAS REGRAS DE RESPONSIVIDADE */
