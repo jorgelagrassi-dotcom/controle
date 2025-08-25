@@ -111,18 +111,16 @@ button:hover {
 }
 
 .button-relatorio {
-    display: block;
-    width: 90%;
+   width: 100%;
     padding: 12px;
-    background-color: #007BFF;
     color: white;
-    text-align: center;
-    text-decoration: none;
+    border: none;
     border-radius: 5px;
     font-size: 1.1em;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-bottom: 20px;
+    margin-top: 15px;
+    background-color: #007BFF;
 }
 
 .button-relatorio:hover {
@@ -161,6 +159,7 @@ button:hover {
         font-size: 1em;
     }
 }
+
 
 
 
