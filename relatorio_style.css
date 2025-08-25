@@ -156,6 +156,40 @@ h2 {
     background-color: #c82333;
 }
 
+/* Centraliza os botões de navegação e ajusta a largura */
+.botoes-nav-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px; /* Adiciona um espaço entre os botões se houver mais de um */
+}
+
+/* Reduz a largura do botão para que ele possa ser centralizado */
+.button-back {
+    display: block;
+    width: 100%;
+    max-width: 250px; /* Define uma largura máxima para o botão */
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+.button-back:hover {
+    background-color: #0056b3;
+}
+
+/* Centraliza o botão "Voltar para o Formulário" no final da página */
+.container > .button-back {
+    margin: 20px auto;
+}
+
 /* Estilos para os gráficos */
 #graficos-container {
     margin-top: 40px;

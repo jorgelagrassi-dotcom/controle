@@ -23,8 +23,8 @@ const relatorioDisciplinaUnica = document.getElementById('relatorio-disciplina-u
 const tabelaCorpoDisciplina = document.getElementById('tabela-disciplina-unica').getElementsByTagName('tbody')[0];
 const botoesContainer = document.querySelector('#botoes-disciplinas .buttons-container');
 const botaoVoltarGeral = document.getElementById('voltar-geral');
-const graficosContainer = document.getElementById('graficos-container');
 const botaoExibirGraficos = document.getElementById('exibir-graficos');
+const graficosContainer = document.getElementById('graficos-container');
 const canvasGraficoMotivosBarras = document.getElementById('graficoMotivosBarras');
 const canvasGraficoDisciplinasBarras = document.getElementById('graficoDisciplinasBarras');
 const canvasGraficoMotivosPizza = document.getElementById('graficoMotivosPizza');
@@ -48,10 +48,12 @@ function formatarDataSimples(dataString) {
 
 function exibirRelatorioPorDisciplina(disciplina) {
     relatorioGeral.style.display = 'none';
-    relatorioDisciplinaUnica.style.display = 'block';
     graficosContainer.style.display = 'none';
+    relatorioDisciplinaUnica.style.display = 'block';
+    
+    // Mostra o botão de voltar para o relatório geral e esconde o de gráficos
     botaoVoltarGeral.style.display = 'block';
-    botaoExibirGraficos.textContent = 'Ver Gráficos';
+    botaoExibirGraficos.style.display = 'none';
 
     tabelaCorpoDisciplina.innerHTML = "";
     
@@ -82,16 +84,20 @@ function exibirRelatorioGeral() {
     relatorioGeral.style.display = 'block';
     relatorioDisciplinaUnica.style.display = 'none';
     graficosContainer.style.display = 'none';
+
+    // Mostra o botão de gráficos e esconde o de voltar
     botaoVoltarGeral.style.display = 'none';
-    botaoExibirGraficos.textContent = 'Ver Gráficos';
+    botaoExibirGraficos.style.display = 'block';
 }
 
 function exibirGraficos() {
     relatorioGeral.style.display = 'none';
     relatorioDisciplinaUnica.style.display = 'none';
     graficosContainer.style.display = 'block';
+    
+    // Mostra o botão de voltar e esconde o de gráficos
     botaoVoltarGeral.style.display = 'block';
-    botaoExibirGraficos.textContent = 'Ver Relatório Geral';
+    botaoExibirGraficos.style.display = 'none';
 }
 
 async function deletarRegistro(docId) {
@@ -267,15 +273,9 @@ function criarGraficos(dados) {
     });
 }
 
+// Eventos de clique para os botões de navegação
 botaoVoltarGeral.addEventListener('click', exibirRelatorioGeral);
-
-botaoExibirGraficos.addEventListener('click', () => {
-    if (graficosContainer.style.display === 'none') {
-        exibirGraficos();
-    } else {
-        exibirRelatorioGeral();
-    }
-});
+botaoExibirGraficos.addEventListener('click', exibirGraficos);
 
 db.collection("controles").orderBy("data", "desc").onSnapshot((querySnapshot) => {
     dadosPorDisciplina = {};
