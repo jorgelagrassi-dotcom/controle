@@ -10,8 +10,6 @@ body {
     margin: 0;
 }
 
-
-
 .container {
     background-color: #ffffff;
     padding: 30px;
@@ -43,9 +41,9 @@ h1 {
 }
 
 label {
-    font-weight: bold;
+    font-weight: 700;
+    margin-bottom: 8px;
     color: #555;
-    margin-bottom: 5px;
     font-size: 0.9em;
 }
 
@@ -56,32 +54,39 @@ select,
 textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
-    font-size: 1em;
-    margin-top: 5px;
+    font-family: 'Roboto', sans-serif;
 }
 
 textarea {
-    resize: vertical;
+    resize: vertical; /* Permite redimensionar apenas verticalmente */
+    min-height: 100px;
 }
 
-.checkbox-group {
+.form-group {
     margin-bottom: 20px;
-}
-
-.checkbox-group p {
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 10px;
-    font-size: 0.9em;
 }
 
 .checkbox-container {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
+}
+
+/* NOVO: Estilos para agrupar as opções */
+.checkbox-group {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column; /* Alinha os itens em coluna */
+    gap: 10px;
+    flex-grow: 1; /* Permite que o grupo cresça para preencher o espaço */
+    box-sizing: border-box;
+    min-width: 200px; /* Garante que os grupos não fiquem muito estreitos */
 }
 
 .checkbox-item {
@@ -91,7 +96,33 @@ textarea {
 
 .checkbox-item input[type="checkbox"] {
     margin-right: 8px;
+    /* NOVO: Estilização do checkbox */
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
 }
+
+.checkbox-item input[type="checkbox"]:checked {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.checkbox-item input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
 
 button {
     width: 100%;
@@ -126,45 +157,17 @@ button:hover {
 }
 
 .button-relatorio:hover {
-    background-color: #0056b3;
+    background-color: #0069d9;
 }
 
-/* REGRAS DE RESPONSIVIDADE */
-@media (max-width: 600px) {
+/* Responsividade */
+@media (max-width: 768px) {
+    .form-group-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
     .container {
         padding: 20px;
     }
-    
-    h1 {
-        font-size: 1.2em;
-    }
-
-    .form-group-row {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .input-group label {
-        font-size: 0.8em;
-    }
-
-    .checkbox-container {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .checkbox-group p {
-        font-size: 0.8em;
-    }
-
-    button, .button-relatorio {
-        font-size: 1em;
-    }
 }
-
-
-
-
-
-
-
