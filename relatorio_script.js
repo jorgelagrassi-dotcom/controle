@@ -1,4 +1,4 @@
-// Este é o código que busca os dados do Firestore e exibe na página.
+// Este é o código que busca os dados do Firestore, cria botões de filtro e exibe os relatórios.
 
 // Suas credenciais do Firebase (já preenchidas)
 var firebaseConfig = {
@@ -26,12 +26,11 @@ const botaoVoltarGeral = document.getElementById('voltar-geral');
 // Objeto para armazenar os dados agrupados por disciplina
 let dadosPorDisciplina = {};
 
-// Função para formatar a data para o formato DD/MM/AAAA
+// Função para formatar a data
 function formatarData(timestamp) {
     if (!timestamp) return 'N/A';
     const data = new Date(timestamp.seconds * 1000);
-    // Usa toLocaleDateString para garantir o formato local correto (DD/MM/AAAA)
-    return data.toLocaleDateString('pt-BR');
+    return data.toLocaleString('pt-BR');
 }
 
 // Função para exibir o relatório de uma disciplina específica
@@ -99,8 +98,8 @@ db.collection("controles").orderBy("timestamp", "desc").onSnapshot((querySnapsho
         linhaGeral.insertCell(0).textContent = dados.professor || 'N/A';
         linhaGeral.insertCell(1).textContent = dados.sala || 'N/A';
         linhaGeral.insertCell(2).textContent = dados.data || 'N/A';
-        linhaGeral.insertCell(3).textContent = (dados.disciplinas && dados.disciplinas.length > 0) ? dados.disciplinas.join(", ") : 'N/A';
-        linhaGeral.insertCell(4).textContent = (dados.motivos && dados.motivos.length > 0) ? dados.motivos.join(", ") : 'N/A';
+        linhaGeral.insertCell(3).textContent = dados.disciplinas.join(", ") || 'N/A';
+        linhaGeral.insertCell(4).textContent = dados.motivos.join(", ") || 'N/A';
         linhaGeral.insertCell(5).textContent = dados.observacao || 'N/A';
         linhaGeral.insertCell(6).textContent = formatarData(dados.timestamp);
 
