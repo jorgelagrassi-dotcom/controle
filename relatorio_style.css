@@ -49,19 +49,21 @@ h2 {
 
 .table-container {
     overflow-x: auto;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .styled-table {
     width: 100%;
     border-collapse: collapse;
+    margin: 25px 0;
     font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .styled-table thead tr {
-    background-color: #007bff;
+    background-color: #009879;
     color: #ffffff;
     text-align: left;
 }
@@ -69,13 +71,7 @@ h2 {
 .styled-table th,
 .styled-table td {
     padding: 12px 15px;
-    white-space: nowrap; /* Impede a quebra de linha nas células */
-    border-right: 1px solid #dddddd; /* Adiciona uma borda à direita */
-}
-
-.styled-table th:last-child,
-.styled-table td:last-child {
-    border-right: none; /* Remove a borda da última célula */
+    word-wrap: break-word; /* Permite que o texto quebre a linha */
 }
 
 .styled-table tbody tr {
@@ -87,30 +83,37 @@ h2 {
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #007bff;
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
 }
 
 .button-back {
     display: block;
-    width: 200px;
-    padding: 10px;
-    margin: 20px auto;
-    text-align: center;
-    background-color: #6c757d;
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
     color: white;
+    text-align: center;
     text-decoration: none;
     border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 20px;
 }
 
 .button-back:hover {
-    background-color: #5a6268;
+    background-color: #0056b3;
 }
 
 .button-discipline {
-    padding: 8px 15px;
+    background-color: #e0e0e0;
     border: 1px solid #ccc;
-    background-color: #f9f9f9;
+    padding: 8px 15px;
     cursor: pointer;
     border-radius: 5px;
     font-size: 0.9em;
@@ -121,9 +124,9 @@ h2 {
     background-color: #d4d4d4;
 }
 
-/* NOVO: Estilos para os botões de ação (excluir/editar) */
+/* Estilos para os botões de ação (excluir/editar) */
 .acoes-celula {
-    white-space: nowrap; /* Impede que os botões quebrem a linha */
+    white-space: nowrap;
 }
 
 .botao-acao {
@@ -142,8 +145,80 @@ h2 {
 }
 
 .botao-acao:hover svg {
-    transform: scale(1.1); /* Efeito de escala ao passar o mouse */
+    transform: scale(1.1);
 }
+
+.botao-acao.edit svg {
+    fill: #007BFF; /* Cor azul para o ícone de edição */
+}
+
+/* Estilos para os modais (janelas pop-up) */
+.custom-modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.custom-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    max-width: 400px;
+    width: 90%;
+}
+
+.custom-modal-content h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.custom-modal-content .input-group {
+    margin-bottom: 15px;
+}
+
+.custom-modal-content .input-group input,
+.custom-modal-content .input-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-button-confirm {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-button-cancel {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 
 /* INÍCIO: NOVAS REGRAS DE RESPONSIVIDADE PARA TELAS PEQUENAS */
 @media (max-width: 768px) {
@@ -152,27 +227,19 @@ h2 {
     }
 
     h1 {
-        font-size: 1.2em; /* Diminui o tamanho da fonte do h1 */
+        font-size: 1.2em; /* Diminui o tamanho da fonte do título */
     }
 
     h2 {
-        font-size: 1.1em; /* Diminui o tamanho da fonte do h2 */
+        font-size: 1.1em; /* Diminui o tamanho da fonte dos subtítulos */
+    }
+    
+    .styled-table {
+        font-size: 0.8em; /* Diminui a fonte da tabela */
     }
 
     .styled-table th,
     .styled-table td {
         padding: 8px 10px; /* Reduz o padding das células */
-        font-size: 0.8em; /* Diminui o tamanho da fonte da tabela */
     }
 }
-
-/* NOVO: Estilo para a linha com problema de plataforma instável */
-.plataforma-instavel-row {
-    background-color: #ffcccc !important; /* Cor de fundo vermelha clara */
-}
-
-/* Ajuste para que a nova cor de fundo funcione com as linhas pares */
-.styled-table tbody tr.plataforma-instavel-row:nth-of-type(even) {
-    background-color: #ffcccc !important;
-}
-
