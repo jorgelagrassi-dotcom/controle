@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Equipamentos</title>
-    <!-- Carregamento de fontes e estilos -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Inclui a biblioteca Firebase -->
+
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 </head>
 <body>
     <div class="container">
-        <center><img src="https://placehold.co/150x150/f0f2f5/f0f2f5?text=Logo" onerror="this.onerror=null;this.src='logo2.png';" width="25%"></center>
-        <h2>CONTROLE DE PLATAFORMA E ENTREGA DE EQUIPAMENTOS</h2>
+        <center><img src="logo2.png" width="25%">
+        <h2>CONTROLE DE PLATAFORMA E ENTREGA DE EQUIPAMENTOS</h2></CENTER>
         
         <!-- Botão para ir para a página de relatório -->
         <a href="relatorio.html" class="button-relatorio">RELATÓRIO</a>
@@ -34,28 +32,41 @@
                         <option value="6B">6B</option>
                         <option value="6C">6C</option>
                         <option value="6D">6D</option>
+                        <option value="6E">6E</option>
                         <option value="7A">7A</option>
                         <option value="7B">7B</option>
                         <option value="7C">7C</option>
+                        <option value="7D">7D</option>
+                        <option value="7E">7E</option>
                         <option value="8A">8A</option>
                         <option value="8B">8B</option>
                         <option value="8C">8C</option>
+                        <option value="8D">8D</option>
+                        <option value="8E">8E</option>
                         <option value="9A">9A</option>
                         <option value="9B">9B</option>
                         <option value="9C">9C</option>
-                        <option value="1A">1ª Série A</option>
-                        <option value="1B">1ª Série B</option>
-                        <option value="2A">2ª Série A</option>
-                        <option value="2B">2ª Série B</option>
-                        <option value="3A">3ª Série A</option>
-                        <option value="AUD">Auditório</option>
-                        <option value="BIB">Biblioteca</option>
-                        <option value="LAB">Laboratório</option>
-                        <option value="QUA">Quadra</option>
+                        <option value="9D">9D</option>
+                        <option value="9E">9E</option>
+                        <option value="1A">1A</option>
+                        <option value="1B">1B</option>
+                        <option value="1C">1C</option>
+                        <option value="1D">1D</option>
+                        <option value="1E">1E</option>
+                        <option value="2A">2A</option>
+                        <option value="2B">2B</option>
+                        <option value="2C">2C</option>
+                        <option value="2D">2D</option>
+                        <option value="2E">2E</option>
+                        <option value="3A">3A</option>
+                        <option value="3B">3B</option>
+                        <option value="3C">3C</option>
+                        <option value="3D">3D</option>
+                        <option value="3E">3E</option>
+                        <option value="37">37</option>
                     </select>
                 </div>
             </div>
-
             <div class="form-group-row">
                 <div class="input-group">
                     <label for="data">DATA</label>
@@ -67,33 +78,24 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>DISCIPLINA</label>
+            <div class="checkbox-group">
+                <p>DISCIPLINAS</p>
                 <div class="checkbox-container">
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="lingua-portuguesa" id="lingua-portuguesa"><label for="lingua-portuguesa">LÍNGUA PORTUGUESA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="matematica" id="matematica"><label for="matematica">MATEMÁTICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="geografia" id="geografia"><label for="geografia">GEOGRAFIA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="historia" id="historia"><label for="historia">HISTÓRIA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="ciencias" id="ciencias"><label for="ciencias">CIÊNCIAS</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="fisica" id="fisica"><label for="fisica">FÍSICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="quimica" id="quimica"><label for="quimica">QUÍMICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="biologia" id="biologia"><label for="biologia">BIOLOGIA</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="redacao" id="redacao"><label for="redacao">REDAÇÃO</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="khan" id="khan"><label for="khan">KHAN</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="progr" id="progr"><label for="progr">PROGR.</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="tarefas" id="tarefas"><label for="tarefas">TAREFAS</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="leia" id="leia"><label for="leia">LEIA</label></div>
                     <div class="checkbox-item"><input type="checkbox" name="disciplina" value="ingles" id="ingles"><label for="ingles">INGLÊS</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="espanhol" id="espanhol"><label for="espanhol">ESPANHOL</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="educacao-fisica" id="educacao-fisica"><label for="educacao-fisica">EDUCAÇÃO FÍSICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="artes" id="artes"><label for="artes">ARTES</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="musica" id="musica"><label for="musica">MÚSICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="informatica" id="informatica"><label for="informatica">INFORMÁTICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="robotica" id="robotica"><label for="robotica">ROBÓTICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="projeto-de-vida" id="projeto-de-vida"><label for="projeto-de-vida">PROJETO DE VIDA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="eletivas" id="eletivas"><label for="eletivas">ELETIVAS</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="matific" id="matific"><label for="matific">MATIFIC</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="fisica" id="fisica"><label for="fisica">FÍSICA</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="empreend" id="empreend"><label for="empreend">EMPREEND.</label></div>
                 </div>
             </div>
-            
-            <div class="form-group">
-                <label>MOTIVO</label>
+
+            <div class="checkbox-group">
+                <p>MOTIVOS</p>
                 <div class="checkbox-container">
-                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="sem-internet" id="sem-internet"><label for="sem-internet">SEM INTERNET</label></div>
                     <div class="checkbox-item"><input type="checkbox" name="motivo" value="plataforma-instavel" id="plataforma-instavel"><label for="plataforma-instavel">PLATAFORMA INSTÁVEL</label></div>
                     <div class="checkbox-item"><input type="checkbox" name="motivo" value="equipamento-indisponivel" id="equipamento-indisponivel"><label for="equipamento-indisponivel">EQUIPAMENTO INDISPONÍVEL</label></div>
                     <div class="checkbox-item"><input type="checkbox" name="motivo" value="sala-em-prova" id="sala-em-prova"><label for="sala-em-prova">SALA EM PROVA/ATIVIDADE</label></div>
@@ -114,3 +116,12 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
