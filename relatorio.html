@@ -8,7 +8,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -20,7 +20,8 @@
             <div class="buttons-container">
                 </div>
             <button id="voltar-geral" class="button-back" style="display:none;">Ver Relatório Geral</button>
-            <button id="exibir-graficos" class="button-back">Ver Gráficos</button>
+            <button id="exibir-graficos" class="button-back"><B>Ver Gráficos</B></button>
+	    <a href="index.html" class="button-back"><B>Voltar para o Formulário</B></a>
         </div>
 
         <div id="relatorio-geral">
@@ -32,7 +33,7 @@
                             <th>Professor</th>
                             <th>Sala</th>
                             <th>Data</th>
-                            <th>Disciplinas</th>
+                            <th>Disciplina(s)</th>
                             <th>Situação</th>
                             <th>Observação</th>
                             <th>Ações</th>
@@ -43,7 +44,7 @@
                 </table>
             </div>
         </div>
-        
+
         <div id="relatorio-disciplina-unica" style="display:none;">
             <div class="table-container">
                 <table id="tabela-disciplina-unica" class="styled-table">
@@ -62,9 +63,9 @@
                 </table>
             </div>
         </div>
-
+        
         <div id="graficos-container" style="display:none; text-align: center;">
-            <h2>Análise de Dados (Grapficos de Barras)</h2>
+            <h2>Análise de Dados (Gráficos)</h2>
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
                 <div style="max-width: 450px; width: 100%;">
                     <h3>Motivos Mais Registrados</h3>
@@ -74,21 +75,17 @@
                     <h3>Disciplinas Mais Usadas</h3>
                     <canvas id="graficoDisciplinasBarras"></canvas>
                 </div>
-            </div>
-
-            <h2 style="margin-top: 40px;">Análise de Dados (Grapficos de Pizza)</h2>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
                 <div style="max-width: 450px; width: 100%;">
-                    <h3>Motivos Mais Registrados</h3>
+                    <h3>Distribuição dos Motivos</h3>
                     <canvas id="graficoMotivosPizza"></canvas>
                 </div>
                 <div style="max-width: 450px; width: 100%;">
-                    <h3>Disciplinas Mais Usadas</h3>
+                    <h3>Distribuição das Disciplinas</h3>
                     <canvas id="graficoDisciplinasPizza"></canvas>
                 </div>
             </div>
         </div>
-        
+
         <a href="index.html" class="button-back">Voltar para o Formulário</a>
     </div>
     <script src="relatorio_script.js"></script>

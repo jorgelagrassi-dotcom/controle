@@ -40,77 +40,24 @@ h2 {
     padding-bottom: 5px;
 }
 
-h3 {
-    font-size: 1.1em;
-    color: #333;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-}
-
-/* Estilo para ambas as tabelas: geral e por disciplina */
-.styled-table {
-    width: 100%;
-    border-collapse: collapse;
+#botoes-disciplinas {
+    text-align: center;
     margin-bottom: 20px;
 }
 
-.styled-table th, .styled-table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-    font-size: 0.9em;
-}
-
-.styled-table th {
-    background-color: #4CAF50;
-    color: white;
-    font-weight: bold;
-}
-
-.styled-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.styled-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-.button-back {
-    display: inline-block;
-    width: auto;
-    padding: 12px 20px;
-    background-color: #007BFF;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1em;
-    text-align: center;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-}
-
-.button-back:hover {
-    background-color: #0056b3;
-}
-
-/* Estilo para os botões de disciplina */
 .buttons-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .button-discipline {
-    padding: 10px 15px;
-    border: 1px solid #ccc;
-    background-color: #e9e9e9;
+    background-color: #f0f0f0;
     color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 15px;
     cursor: pointer;
     border-radius: 5px;
     font-size: 0.9em;
@@ -121,9 +68,72 @@ h3 {
     background-color: #d4d4d4;
 }
 
-/* NOVO: Estilos para os botões de ação (excluir/editar) */
+.button-back {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.button-back:hover {
+    background-color: #0056b3;
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    border: 1px solid #dddddd;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+/* Estilos para os botões de ação (excluir/editar) */
 .acoes-celula {
-    white-space: nowrap; /* Impede que os botões quebrem a linha */
+    white-space: nowrap;
 }
 
 .botao-acao {
@@ -134,45 +144,36 @@ h3 {
     margin: 0 5px;
 }
 
-.botao-acao svg {
-    fill: #dc3545; /* Cor vermelha para a lixeira */
-    width: 20px;
-    height: 20px;
-    transition: transform 0.2s ease;
+/* CORRIGIDO: Esta regra garante que o botão de apagar seja vermelho */
+.botao-acao.apagar {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
-.botao-acao:hover svg {
-    transform: scale(1.1); /* Efeito de escala ao passar o mouse */
+.botao-acao.apagar:hover {
+    background-color: #c82333;
 }
 
-/* INÍCIO: NOVAS REGRAS DE RESPONSIVIDADE PARA TELAS PEQUENAS */
+/* Estilos para os gráficos */
+#graficos-container {
+    margin-top: 40px;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
     .container {
         padding: 15px;
     }
 
     h1 {
-        font-size: 1.2em; /* Diminui o tamanho da fonte do título principal */
+        font-size: 1.2em;
     }
 
-    h2 {
-        font-size: 1.1em; /* Diminui o tamanho da fonte dos subtítulos */
-    }
-
-    /* Ajusta a fonte e o padding das células da tabela para ocupar menos espaço */
-    .styled-table th, .styled-table td {
-        padding: 8px;
+    .styled-table th,
+    .styled-table td {
+        padding: 8px 10px;
         font-size: 0.8em;
-    }
-
-    /* Otimiza a visualização dos botões para telas menores */
-    .buttons-container {
-        gap: 8px;
-    }
-
-    .button-discipline, .button-back {
-        font-size: 0.8em;
-        padding: 8px 12px;
     }
 }
-/* FIM: NOVAS REGRAS DE RESPONSIVIDADE */
