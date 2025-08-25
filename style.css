@@ -28,6 +28,14 @@ h1 {
     font-weight: 700;
 }
 
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
 .form-group-row {
     display: flex;
     gap: 20px;
@@ -61,7 +69,7 @@ textarea {
 }
 
 textarea {
-    resize: vertical; /* Permite redimensionar apenas verticalmente */
+    resize: vertical;
     min-height: 100px;
 }
 
@@ -82,11 +90,11 @@ textarea {
     border-radius: 8px;
     border: 1px solid #eee;
     display: flex;
-    flex-direction: column; /* Alinha os itens em coluna */
+    flex-direction: column;
     gap: 10px;
-    flex-grow: 1; /* Permite que o grupo cresça para preencher o espaço */
+    flex-grow: 1;
     box-sizing: border-box;
-    min-width: 200px; /* Garante que os grupos não fiquem muito estreitos */
+    min-width: 200px;
 }
 
 .checkbox-item {
@@ -96,7 +104,6 @@ textarea {
 
 .checkbox-item input[type="checkbox"] {
     margin-right: 8px;
-    /* NOVO: Estilização do checkbox */
     appearance: none;
     width: 20px;
     height: 20px;
