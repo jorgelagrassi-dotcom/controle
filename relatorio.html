@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatórios de Controles</title>
+    <!-- Carregamento de fontes e estilos -->
     <link rel="stylesheet" href="relatorio_style.css">
 
-    <!-- Firebase SDK - As mesmas bibliotecas do outro arquivo -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 </head>
 <body>
     <div class="container">
@@ -37,6 +39,7 @@
                             <th>Situação</th>
                             <th>Observação</th>
                             <th>Data de Registro</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,6 +61,7 @@
                             <th>Situação</th>
                             <th>Observação</th>
                             <th>Data de Registro</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,7 +73,51 @@
         
         <a href="index.html" class="button-back">Voltar para o Formulário</a>
     </div>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div id="confirm-modal" class="custom-modal" style="display: none;">
+        <div class="custom-modal-content">
+            <p>Tem certeza de que deseja excluir este registro?</p>
+            <div class="button-group">
+                <button id="confirm-delete-btn" class="modal-button-confirm">Sim</button>
+                <button id="cancel-delete-btn" class="modal-button-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edição -->
+    <div id="edit-modal" class="custom-modal" style="display: none;">
+        <div class="custom-modal-content">
+            <h3>Editar Registro</h3>
+            <form id="edit-form">
+                <div class="input-group">
+                    <label for="edit-professor">Professor</label>
+                    <input type="text" id="edit-professor" name="professor" required>
+                </div>
+                <div class="input-group">
+                    <label for="edit-sala">Sala</label>
+                    <input type="text" id="edit-sala" name="sala" required>
+                </div>
+                <div class="input-group">
+                    <label for="edit-data">Data</label>
+                    <input type="date" id="edit-data" name="data" required>
+                </div>
+                <div class="input-group">
+                    <label for="edit-motivos">Situação/Motivos (separados por vírgula)</label>
+                    <input type="text" id="edit-motivos" name="motivos">
+                </div>
+                <div class="input-group">
+                    <label for="edit-observacao">Observação</label>
+                    <textarea id="edit-observacao" name="observacao" rows="4"></textarea>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="modal-button-confirm">Salvar</button>
+                    <button type="button" id="cancel-edit-btn" class="modal-button-cancel">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <script src="relatorio_script.js"></script>
 </body>
 </html>
-
