@@ -21,11 +21,12 @@ document.getElementById('form-controle').addEventListener('submit', async functi
     event.preventDefault(); // Evita que o formulário recarregue a página
 
     // Coleta os dados do formulário
-    const professor = document.getElementById('professor').value;
+    // CONVERTE PROFESSOR E OBSERVAÇÃO PARA CAIXA ALTA ANTES DE SALVAR
+    const professor = document.getElementById('professor').value.toUpperCase();
     const sala = document.getElementById('sala').value;
     const data = document.getElementById('data').value;
     const horario = document.getElementById('horario').value;
-    const observacao = document.getElementById('observacao').value;
+    const observacao = document.getElementById('observacao').value.toUpperCase();
 
     const disciplinasSelecionadas = [];
     document.querySelectorAll('input[name="disciplina"]:checked').forEach(checkbox => {
@@ -59,6 +60,6 @@ document.getElementById('form-controle').addEventListener('submit', async functi
     } catch (e) {
         // Em caso de erro
         console.error("Erro ao salvar os dados: ", e);
-        alert("Ocorreu um erro ao salvar os dados. Verifique o console.");
+        alert("Ocorreu um erro ao salvar os dados.");
     }
 });
