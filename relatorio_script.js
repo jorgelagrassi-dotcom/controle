@@ -83,11 +83,7 @@ async function buscarEExibirDados() {
             dados.docId = doc.id; // Adiciona o ID do documento ao objeto
 
             const linhaGeral = tabelaCorpoGeral.insertRow();
-            // NOVO: Verifica se a linha deve ter a classe de cor vermelha
-            if (dados.motivos && dados.motivos.includes('plataforma-instavel')) {
-                linhaGeral.classList.add('plataforma-instavel-row');
-            }
-
+            
             linhaGeral.insertCell(0).textContent = dados.professor || 'N/A';
             linhaGeral.insertCell(1).textContent = dados.sala || 'N/A';
             linhaGeral.insertCell(2).textContent = dados.data || 'N/A';
@@ -138,11 +134,7 @@ function filtrarPorDisciplina(disciplina, dados) {
     // Preenche a tabela com os dados filtrados
     dados.forEach(dado => {
         const linha = tabelaCorpoDisciplina.insertRow();
-        // NOVO: Aplica a classe de cor vermelha se necessário
-        if (dado.motivos && dado.motivos.includes('plataforma-instavel')) {
-            linha.classList.add('plataforma-instavel-row');
-        }
-
+        
         linha.insertCell(0).textContent = dado.professor || 'N/A';
         linha.insertCell(1).textContent = dado.sala || 'N/A';
         linha.insertCell(2).textContent = dado.data || 'N/A';
