@@ -112,7 +112,7 @@ button:hover {
 
 .button-relatorio {
     display: block;
-    width: 90%;
+    width: 100%;
     padding: 12px;
     background-color: #007BFF;
     color: white;
@@ -161,6 +161,7 @@ button:hover {
         font-size: 1em;
     }
 }
+
 
 
 
