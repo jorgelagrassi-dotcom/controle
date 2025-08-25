@@ -1,12 +1,12 @@
-// Este é o código completo do seu aplicativo, com as suas credenciais do Firebase já inseridas.
+// Este é o código que lida com a submissão do formulário e salva os dados no Firestore.
+// Foi atualizado para usar a sintaxe modular do Firebase e garantir a autenticação correta.
 
 // Importa os módulos necessários do Firebase SDK v11.6.1
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-import { getAuth, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-// Variáveis globais fornecidas pelo ambiente para as credenciais do Firebase
-// Elas são usadas para garantir que a aplicação funcione corretamente neste ambiente.
+// Variáveis globais fornecidas pelo ambiente
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
 const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
 const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
@@ -16,91 +16,88 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-let authReady = false;
+// Referências aos elementos HTML
+const form = document.getElementById('form-controle');
+const statusMessage = document.getElementById('status-message');
 
-// Função para exibir uma mensagem personalizada (substitui o 'alert()')
-function showMessage(message, isError = false) {
-    const messageBox = document.getElementById('message-box');
-    const messageText = document.getElementById('message-text');
+// Função para exibir uma mensagem de status na interface
+function showStatusMessage(message, isSuccess = true) {
+    statusMessage.textContent = message;
+    statusMessage.style.display = 'block';
+    statusMessage.style.backgroundColor = isSuccess ? '#4CAF50' : '#f44336';
+    statusMessage.style.color = 'white';
+    statusMessage.style.padding = '10px';
+    statusMessage.style.borderRadius = '5px';
+    statusMessage.style.textAlign = 'center';
+    statusMessage.style.marginBottom = '10px';
 
-    messageText.textContent = message;
-    messageBox.style.backgroundColor = isError ? '#dc3545' : '#28a745';
-    messageBox.classList.remove('hidden');
-
-    // Oculta a mensagem após 3 segundos
+    // Esconde a mensagem depois de 5 segundos
     setTimeout(() => {
-        messageBox.classList.add('hidden');
-    }, 3000);
+        statusMessage.style.display = 'none';
+    }, 5000);
 }
 
-// Autentica o usuário para permitir o uso do Firestore
-async function authenticateUser() {
-    try {
-        if (initialAuthToken) {
-            await signInWithCustomToken(auth, initialAuthToken);
-        } else {
-            await signInAnonymously(auth);
+// Escuta a autenticação do usuário. Apenas registra o evento de submit após o login.
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        console.log("Usuário autenticado:", user.uid);
+
+        // Adiciona o ouvinte de evento para o formulário
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Evita que o formulário recarregue a página
+
+            // Coleta os dados do formulário
+            const professor = document.getElementById('professor').value;
+            const sala = document.getElementById('sala').value;
+            const data = document.getElementById('data').value;
+            const horario = document.getElementById('horario').value;
+            const observacao = document.getElementById('observacao').value;
+
+            const disciplinasSelecionadas = Array.from(
+                document.querySelectorAll('input[name="disciplina"]:checked')
+            ).map(checkbox => checkbox.value);
+
+            const motivosSelecionados = Array.from(
+                document.querySelectorAll('input[name="motivo"]:checked')
+            ).map(checkbox => checkbox.value);
+
+            // Cria um objeto com todos os dados
+            const dados = {
+                professor: professor,
+                sala: sala,
+                data: data,
+                horario: horario,
+                disciplinas: disciplinasSelecionadas,
+                motivos: motivosSelecionados,
+                observacao: observacao,
+                timestamp: serverTimestamp() // Adiciona data e hora do servidor
+            };
+
+            try {
+                // Salva os dados na coleção 'controles' no Firestore
+                await addDoc(collection(db, "controles"), dados);
+                
+                // Em caso de sucesso
+                showStatusMessage("Dados salvos com sucesso!");
+                form.reset(); // Limpa o formulário
+            } catch (e) {
+                // Em caso de erro
+                console.error("Erro ao salvar os dados: ", e);
+                showStatusMessage("Ocorreu um erro ao salvar os dados.", false);
+            }
+        });
+
+    } else {
+        // Ninguém está logado. Tenta fazer login com o token ou anonimamente.
+        try {
+            if (initialAuthToken) {
+                await signInWithCustomToken(auth, initialAuthToken);
+            } else {
+                await signInAnonymously(auth);
+            }
+        } catch (error) {
+            console.error("Erro na autenticação:", error);
+            showStatusMessage("Erro de autenticação. Tente recarregar a página.", false);
         }
-        authReady = true;
-        console.log("Autenticação Firebase concluída. Usuário ID:", auth.currentUser.uid);
-    } catch (error) {
-        console.error("Erro na autenticação Firebase:", error);
-        showMessage("Ocorreu um erro na autenticação. Verifique o console.", true);
-    }
-}
-
-// Chama a função de autenticação ao carregar a página
-authenticateUser();
-
-// Adiciona um listener para o formulário
-document.getElementById('form-controle').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Evita que o formulário recarregue a página
-
-    // Verifica se a autenticação está pronta
-    if (!authReady) {
-        showMessage("Aguarde a autenticação...", true);
-        return;
-    }
-
-    // Coleta os dados do formulário
-    const professor = document.getElementById('professor').value;
-    const sala = document.getElementById('sala').value;
-    const data = document.getElementById('data').value;
-    const horario = document.getElementById('horario').value;
-    const observacao = document.getElementById('observacao').value;
-
-    const disciplinasSelecionadas = [];
-    document.querySelectorAll('input[name="disciplina"]:checked').forEach(checkbox => {
-        disciplinasSelecionadas.push(checkbox.value);
-    });
-
-    const motivosSelecionados = [];
-    document.querySelectorAll('input[name="motivo"]:checked').forEach(checkbox => {
-        motivosSelecionados.push(checkbox.value);
-    });
-
-    // Cria um objeto com todos os dados
-    const dados = {
-        professor: professor,
-        sala: sala,
-        data: data,
-        horario: horario,
-        disciplinas: disciplinasSelecionadas,
-        motivos: motivosSelecionados,
-        observacao: observacao,
-        timestamp: serverTimestamp() // Adiciona data e hora do servidor
-    };
-
-    try {
-        // Salva os dados na coleção 'controles' no Firestore
-        await addDoc(collection(db, "controles"), dados);
-
-        // Em caso de sucesso
-        showMessage("Dados salvos com sucesso!");
-        document.getElementById('form-controle').reset(); // Limpa o formulário
-    } catch (e) {
-        // Em caso de erro
-        console.error("Erro ao salvar os dados: ", e);
-        showMessage("Ocorreu um erro ao salvar os dados.", true);
     }
 });
