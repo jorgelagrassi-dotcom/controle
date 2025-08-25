@@ -1,157 +1,87 @@
-// Este é o código que busca os dados do Firestore, cria botões de filtro e exibe os relatórios.
-// Esta versão inclui botões para editar e excluir registros.
+// Este é o código que busca os dados do Firestore e exibe na página.
 
-// Suas credenciais do Firebase (já preenchidas)
-var firebaseConfig = {
-    apiKey: "AIzaSyDUE4ioFbh56t4vfI2MF_3Gi0z97ebslp0",
-    authDomain: "justificativa-b5c71.firebaseapp.com",
-    projectId: "justificativa-b5c71",
-    storageBucket: "justificativa-b5c71.firebasestorage.app",
-    messagingSenderId: "148699441670",
-    appId: "1:148699441670:web:c78fe0b1bfbee992bf7187",
-    measurementId: "G-4W498B878H"
-};
+// Importa os módulos necessários do Firebase SDK v11.6.1
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { getAuth, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+// Variáveis globais fornecidas pelo ambiente para as credenciais do Firebase
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
 // Inicializa o Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-// Referências aos elementos HTML
-const tabelaCorpoGeral = document.getElementById('tabela-relatorio').getElementsByTagName('tbody')[0];
-const relatorioGeral = document.getElementById('relatorio-geral');
-const relatorioDisciplinaUnica = document.getElementById('relatorio-disciplina-unica');
-const tabelaCorpoDisciplina = document.getElementById('tabela-disciplina-unica').getElementsByTagName('tbody')[0];
-const botoesContainer = document.getElementById('botoes-disciplinas').querySelector('.buttons-container');
-const botaoVoltarGeral = document.getElementById('voltar-geral');
-const urlParams = new URLSearchParams(window.location.search);
-const docIdParaEdicao = urlParams.get('docId');
+let authReady = false;
 
-// Função para formatar o timestamp do Firebase em uma data legível
+// Função para formatar a data para o formato DD/MM/AAAA
 function formatarData(timestamp) {
-    if (timestamp && timestamp.toDate) {
-        const data = timestamp.toDate();
-        return data.toLocaleDateString('pt-BR') + ' ' + data.toLocaleTimeString('pt-BR');
-    }
-    return 'N/A';
+    const data = new Date(timestamp.seconds * 1000);
+    // Usa toLocaleDateString para garantir o formato local correto (DD/MM/AAAA)
+    return data.toLocaleDateString('pt-BR');
 }
 
-// Função para adicionar os botões de ação (editar e excluir)
-function adicionarBotoesDeAcao(linha, docId) {
-    const celulaAcoes = linha.insertCell(-1);
-    celulaAcoes.classList.add('acoes-celula');
-
-    // Botão de Excluir
-    const botaoExcluir = document.createElement('button');
-    botaoExcluir.classList.add('botao-acao');
-    botaoExcluir.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>`;
-    botaoExcluir.title = "Excluir Registro";
-    botaoExcluir.addEventListener('click', () => {
-        if (confirm("Tem certeza que deseja excluir este registro?")) {
-            db.collection("controles").doc(docId).delete().then(() => {
-                alert("Documento excluído com sucesso!");
-                location.reload(); // Recarrega a página para atualizar a tabela
-            }).catch((error) => {
-                console.error("Erro ao remover documento: ", error);
-                alert("Erro ao excluir o documento.");
-            });
-        }
-    });
-    // Botão de Editar
-    const botaoEditar = document.createElement('button');
-    botaoEditar.classList.add('botao-acao');
-    botaoEditar.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>`;
-    botaoEditar.title = "Editar Registro";
-    botaoEditar.addEventListener('click', () => {
-        // Redireciona para a página de formulário com o ID do documento
-        window.location.href = `index.html?docId=${docId}`;
-    });
-
-    celulaAcoes.appendChild(botaoEditar);
-    celulaAcoes.appendChild(botaoExcluir);
-}
-
-
-// Função para buscar e exibir todos os dados
-async function buscarEExibirDados() {
+// Autentica o usuário para permitir o uso do Firestore
+async function authenticateUser() {
     try {
-        const querySnapshot = await db.collection("controles").get();
-        const dadosPorDisciplina = {};
-
-        // 1. Preenche a tabela geral e agrupa os dados por disciplina
-        querySnapshot.forEach(doc => {
-            const dados = doc.data();
-            dados.docId = doc.id; // Adiciona o ID do documento ao objeto
-
-            const linhaGeral = tabelaCorpoGeral.insertRow();
-            
-            linhaGeral.insertCell(0).textContent = dados.professor || 'N/A';
-            linhaGeral.insertCell(1).textContent = dados.sala || 'N/A';
-            linhaGeral.insertCell(2).textContent = dados.data || 'N/A';
-            linhaGeral.insertCell(3).textContent = (dados.disciplinas && dados.disciplinas.length > 0) ? dados.disciplinas.join(", ") : 'N/A';
-            linhaGeral.insertCell(4).textContent = (dados.motivos && dados.motivos.length > 0) ? dados.motivos.join(", ") : 'N/A';
-            linhaGeral.insertCell(5).textContent = dados.observacao || 'N/A';
-            linhaGeral.insertCell(6).textContent = formatarData(dados.timestamp);
-            adicionarBotoesDeAcao(linhaGeral, dados.docId);
-
-            if (dados.disciplinas && dados.disciplinas.length > 0) {
-                dados.disciplinas.forEach(disciplina => {
-                    const disciplinaFormatada = disciplina.toUpperCase();
-                    if (!dadosPorDisciplina[disciplinaFormatada]) {
-                        dadosPorDisciplina[disciplinaFormatada] = [];
-                    }
-                    dadosPorDisciplina[disciplinaFormatada].push(dados);
-                });
-            }
-        });
-
-        // 2. Cria os botões para cada disciplina
-        for (const disciplina in dadosPorDisciplina) {
-            const button = document.createElement('button');
-            button.textContent = disciplina;
-            button.classList.add('button-discipline');
-            button.addEventListener('click', () => {
-                filtrarPorDisciplina(disciplina, dadosPorDisciplina[disciplina]);
-            });
-            botoesContainer.appendChild(button);
+        if (initialAuthToken) {
+            await signInWithCustomToken(auth, initialAuthToken);
+        } else {
+            await signInAnonymously(auth);
         }
-
-    } catch (e) {
-        console.error("Erro ao buscar dados do Firestore: ", e);
-        alert("Ocorreu um erro ao carregar os relatórios.");
+        authReady = true;
+        console.log("Autenticação Firebase concluída. Usuário ID:", auth.currentUser.uid);
+        // Chama a função de busca de dados apenas após a autenticação
+        fetchAndDisplayData();
+    } catch (error) {
+        console.error("Erro na autenticação Firebase:", error);
     }
 }
 
+// Função principal que busca e exibe os dados
+function fetchAndDisplayData() {
+    // Pega a referência para o corpo da tabela onde os dados serão exibidos
+    const tabelaCorpo = document.getElementById('tabela-relatorio').getElementsByTagName('tbody')[0];
 
-function filtrarPorDisciplina(disciplina, dados) {
-    // Esconde o relatório geral e mostra o de disciplina única
-    relatorioGeral.style.display = 'none';
-    relatorioDisciplinaUnica.style.display = 'block';
-    botaoVoltarGeral.style.display = 'block';
+    // Escuta por mudanças na coleção 'controles' em tempo real
+    onSnapshot(collection(db, "controles"), (querySnapshot) => {
+        // Limpa a tabela para evitar duplicatas
+        tabelaCorpo.innerHTML = "";
 
-    // Limpa a tabela de disciplina única
-    tabelaCorpoDisciplina.innerHTML = '';
+        // Para cada documento encontrado, cria uma nova linha na tabela
+        querySnapshot.forEach((doc) => {
+            const dados = doc.data();
 
-    // Preenche a tabela com os dados filtrados
-    dados.forEach(dado => {
-        const linha = tabelaCorpoDisciplina.insertRow();
-        
-        linha.insertCell(0).textContent = dado.professor || 'N/A';
-        linha.insertCell(1).textContent = dado.sala || 'N/A';
-        linha.insertCell(2).textContent = dado.data || 'N/A';
-        linha.insertCell(3).textContent = (dado.disciplinas && dado.disciplinas.length > 0) ? dado.disciplinas.join(", ") : 'N/A';
-        linha.insertCell(4).textContent = (dado.motivos && dado.motivos.length > 0) ? dado.motivos.join(", ") : 'N/A';
-        linha.insertCell(5).textContent = dado.observacao || 'N/A';
-        linha.insertCell(6).textContent = formatarData(dado.timestamp);
-        adicionarBotoesDeAcao(linha, dado.docId);
+            // Cria um novo elemento de linha na tabela
+            const linha = tabelaCorpo.insertRow();
+
+            // Insere as células com os dados
+            const celulaProfessor = linha.insertCell(0);
+            celulaProfessor.textContent = dados.professor;
+
+            const celulaSala = linha.insertCell(1);
+            celulaSala.textContent = dados.sala;
+
+            const celulaData = linha.insertCell(2);
+            celulaData.textContent = dados.data;
+            
+            const celulaDisciplinas = linha.insertCell(3);
+            celulaDisciplinas.textContent = dados.disciplinas.join(", "); // Junta os itens do array
+
+            const celulaMotivos = linha.insertCell(4);
+            celulaMotivos.textContent = dados.motivos.join(", "); // Junta os itens do array
+
+            const celulaObservacao = linha.insertCell(5);
+            celulaObservacao.textContent = dados.observacao;
+
+            const celulaTimestamp = linha.insertCell(6);
+            celulaTimestamp.textContent = formatarData(dados.timestamp);
+        });
     });
 }
 
-// Adiciona um evento para o botão de voltar ao relatório geral
-botaoVoltarGeral.addEventListener('click', () => {
-    relatorioGeral.style.display = 'block';
-    relatorioDisciplinaUnica.style.display = 'none';
-    botaoVoltarGeral.style.display = 'none';
-});
-
-// Inicia o processo
-buscarEExibirDados();
+// Chama a função de autenticação ao carregar a página
+authenticateUser();
