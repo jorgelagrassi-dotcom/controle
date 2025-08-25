@@ -22,7 +22,6 @@
             <div class="form-group-row">
                 <div class="input-group">
                     <label for="professor">PROFESSOR</label>
-                    <!-- CAMPO DE PROFESSOR AGORA EM CAIXA ALTA -->
                     <input type="text" id="professor" name="professor" required style="text-transform: uppercase;">
                 </div>
                 <div class="input-group">
@@ -56,51 +55,55 @@
                 </div>
             </div>
 
-            <div class="form-group-row">
-                <div class="input-group">
-                    <label for="data">DATA</label>
-                    <input type="date" id="data" name="data" required>
-                </div>
-                <div class="input-group">
-                    <label for="horario">HORÁRIO</label>
-                    <input type="time" id="horario" name="horario" required>
-                </div>
-            </div>
-
             <div class="form-group">
                 <label for="disciplinas">DISCIPLINAS</label>
+                <!-- ALTERAÇÃO: DIVISÃO POR GRUPO PARA MELHORAR A ORGANIZAÇÃO VISUAL -->
                 <div class="checkbox-container">
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Matemática" id="matematica"><label for="matematica">MATEMÁTICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Língua Portuguesa" id="portugues"><label for="portugues">LÍNGUA PORTUGUESA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Física" id="fisica"><label for="fisica">FÍSICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Química" id="quimica"><label for="quimica">QUÍMICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Biologia" id="biologia"><label for="biologia">BIOLOGIA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="História" id="historia"><label for="historia">HISTÓRIA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Geografia" id="geografia"><label for="geografia">GEOGRAFIA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Artes" id="artes"><label for="artes">ARTES</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Educação Física" id="ed_fisica"><label for="ed_fisica">EDUCAÇÃO FÍSICA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Inglês" id="ingles"><label for="ingles">INGLÊS</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Filosofia" id="filosofia"><label for="filosofia">FILOSOFIA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Sociologia" id="sociologia"><label for="sociologia">SOCIOLOGIA</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="T.I." id="ti"><label for="ti">T.I.</label></div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Matemática" id="matematica"><label for="matematica">MATEMÁTICA</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Língua Portuguesa" id="portugues"><label for="portugues">LÍNGUA PORTUGUESA</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Física" id="fisica"><label for="fisica">FÍSICA</label></div>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Química" id="quimica"><label for="quimica">QUÍMICA</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Biologia" id="biologia"><label for="biologia">BIOLOGIA</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="História" id="historia"><label for="historia">HISTÓRIA</label></div>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Geografia" id="geografia"><label for="geografia">GEOGRAFIA</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Artes" id="artes"><label for="artes">ARTES</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Educação Física" id="ed_fisica"><label for="ed_fisica">EDUCAÇÃO FÍSICA</label></div>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Inglês" id="ingles"><label for="ingles">INGLÊS</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Filosofia" id="filosofia"><label for="filosofia">FILOSOFIA</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="Sociologia" id="sociologia"><label for="sociologia">SOCIOLOGIA</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="T.I." id="ti"><label for="ti">T.I.</label></div>
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="motivo">MOTIVO DA NÃO UTILIZAÇÃO</label>
+                <!-- ALTERAÇÃO: DIVISÃO POR GRUPO PARA MELHORAR A ORGANIZAÇÃO VISUAL -->
                 <div class="checkbox-container">
-                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="plataforma-instavel" id="plataforma-instavel"><label for="plataforma-instavel">PLATAFORMA INSTÁVEL</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="equipamento-indisponivel" id="equipamento-indisponivel"><label for="equipamento-indisponivel">EQUIPAMENTO INDISPONÍVEL</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="sala-em-prova" id="sala-em-prova"><label for="sala-em-prova">SALA EM PROVA/ATIVIDADE</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="equipamento-outros-fins" id="equipamento-outros-fins"><label for="equipamento-outros-fins">EQUIPAMENTO SENDO USADO PARA OUTROS FINS</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="professor-nao-usou" id="professor-nao-usou"><label for="professor-nao-usou">PROFESSOR OPTOU POR NÃO USAR O EQUIPAMENTO</label></div>
-                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="uso-ok" id="uso-ok"><label for="uso-ok">USO OCORREU TUDO CERTO</label></div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="plataforma-instavel" id="plataforma-instavel"><label for="plataforma-instavel">PLATAFORMA INSTÁVEL</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="equipamento-indisponivel" id="equipamento-indisponivel"><label for="equipamento-indisponivel">EQUIPAMENTO INDISPONÍVEL</label></div>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="sala-em-prova" id="sala-em-prova"><label for="sala-em-prova">SALA EM PROVA/ATIVIDADE</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="equipamento-outros-fins" id="equipamento-outros-fins"><label for="equipamento-outros-fins">EQUIPAMENTO SENDO USADO PARA OUTROS FINS</label></div>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="professor-nao-usou" id="professor-nao-usou"><label for="professor-nao-usou">PROFESSOR OPTOU POR NÃO USAR O EQUIPAMENTO</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="uso-ok" id="uso-ok"><label for="uso-ok">USO OCORREU TUDO CERTO</label></div>
+                    </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="observacao">OBSERVAÇÃO</label>
-                <!-- CAMPO DE OBSERVAÇÃO AGORA EM CAIXA ALTA -->
                 <textarea id="observacao" name="observacao" style="text-transform: uppercase;"></textarea>
             </div>
 
