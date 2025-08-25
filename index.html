@@ -6,14 +6,18 @@
     <title>Controle de Equipamentos</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <!-- Firebase SDK v11.6.1 (versão modular e mais recente) -->
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"></script>
 </head>
 <body>
     <div class="container">
-        <center><img src="logo2.png" width="25%">
-        <h2>CONTROLE DE PLATAFORMA E ENTREGA DE EQUIPAMENTOS</h2></center>
+        <center>
+            <!-- A imagem logo2.png não foi fornecida, então adicionei um placeholder. -->
+            <img src="https://placehold.co/150x75/000000/FFFFFF?text=Logo+Aqui" width="25%" alt="Logo da empresa">
+            <h2>CONTROLE DE PLATAFORMA E ENTREGA DE EQUIPAMENTOS</h2>
+        </center>
         
         <!-- Botão para ir para a página de relatório -->
         <a href="relatorio.html" class="button-relatorio">RELATÓRIO</a>
@@ -81,7 +85,6 @@
 
             <div class="form-group">
                 <label for="disciplinas">DISCIPLINAS</label>
-                <!-- NOVA ORGANIZAÇÃO VISUAL COM TODOS OS ITENS CORRETOS -->
                 <div class="checkbox-container">
                     <div class="checkbox-group">
                         <div class="checkbox-item"><input type="checkbox" name="disciplina" value="redacao" id="redacao"><label for="redacao">REDAÇÃO</label></div>
@@ -103,7 +106,6 @@
 
             <div class="form-group">
                 <label for="motivo">MOTIVO DA NÃO UTILIZAÇÃO</label>
-                <!-- NOVA ORGANIZAÇÃO VISUAL COM TODOS OS ITENS CORRETOS -->
                 <div class="checkbox-container">
                     <div class="checkbox-group">
                         <div class="checkbox-item"><input type="checkbox" name="motivo" value="plataforma-instavel" id="plataforma-instavel"><label for="plataforma-instavel">PLATAFORMA INSTÁVEL</label></div>
@@ -124,10 +126,12 @@
                 <label for="observacao">OBSERVAÇÃO</label>
                 <textarea id="observacao" name="observacao" style="text-transform: uppercase;"></textarea>
             </div>
-
+            
+            <div id="status-message" class="hidden"></div>
             <button type="submit">SALVAR REGISTRO</button>
         </form>
     </div>
-    <script src="script.js"></script>
+    <!-- O script agora é um módulo -->
+    <script type="module" src="script.js"></script>
 </body>
 </html>
