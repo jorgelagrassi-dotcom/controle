@@ -6,32 +6,27 @@
     <title>Controle de Equipamentos</title>
     <link rel="stylesheet" href="style.css">
 
-    <!-- Firebase SDK v11.6.1 (versão modular e mais recente) -->
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"></script>
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
     <div class="container">
-        <center>
-            <!-- A imagem logo2.png não foi fornecida, então adicionei um placeholder. -->
-            <img src="https://placehold.co/150x75/000000/FFFFFF?text=Logo+Aqui" width="25%" alt="Logo da empresa">
-            <h2>CONTROLE DE PLATAFORMA E ENTREGA DE EQUIPAMENTOS</h2>
-        </center>
+        <h1>CONTROLE DE PLATAFORMA E ENTREGA DE EQUIPAMENTOS</h1>
         
         <!-- Botão para ir para a página de relatório -->
-        <a href="relatorio.html" class="button-relatorio">RELATÓRIO</a>
+        <a href="relatorio.html" class="button-relatorio">Ver Relatório</a>
 
         <form id="form-controle">
             <div class="form-group-row">
                 <div class="input-group">
                     <label for="professor">PROFESSOR</label>
-                    <input type="text" id="professor" name="professor" required style="text-transform: uppercase;">
+                    <input type="text" id="professor" name="professor" required>
                 </div>
                 <div class="input-group">
                     <label for="sala">SALA</label>
                     <select id="sala" name="sala" required>
-                        <option value="">Selecione a Sala</option>
+                        <option value="">Selecione a sala</option>
                         <option value="6A">6A</option>
                         <option value="6B">6B</option>
                         <option value="6C">6C</option>
@@ -71,7 +66,6 @@
                     </select>
                 </div>
             </div>
-
             <div class="form-group-row">
                 <div class="input-group">
                     <label for="data">DATA</label>
@@ -83,55 +77,41 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="disciplinas">DISCIPLINAS</label>
+            <div class="checkbox-group">
+                <p>DISCIPLINAS</p>
                 <div class="checkbox-container">
-                    <div class="checkbox-group">
-                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="redacao" id="redacao"><label for="redacao">REDAÇÃO</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="khan" id="khan"><label for="khan">KHAN</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="progr" id="progr"><label for="progr">PROGR.</label></div>
-                    </div>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="tarefas" id="tarefas"><label for="tarefas">TAREFAS</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="leia" id="leia"><label for="leia">LEIA</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="ingles" id="ingles"><label for="ingles">INGLÊS</label></div>
-                    </div>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="matific" id="matific"><label for="matific">MATIFIC</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="fisica" id="fisica"><label for="fisica">FÍSICA</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="disciplina" value="empreend" id="empreend"><label for="empreend">EMPREEND.</label></div>
-                    </div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="redacao" id="redacao"><label for="redacao">REDAÇÃO</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="khan" id="khan"><label for="khan">KHAN</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="progr" id="progr"><label for="progr">PROGR.</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="tarefas" id="tarefas"><label for="tarefas">TAREFAS</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="leia" id="leia"><label for="leia">LEIA</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="ingles" id="ingles"><label for="ingles">INGLÊS</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="matific" id="matific"><label for="matific">MATIFIC</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="fisica" id="fisica"><label for="fisica">FÍSICA</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="disciplina" value="empreend" id="empreend"><label for="empreend">EMPREEND.</label></div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="motivo">MOTIVO DA NÃO UTILIZAÇÃO</label>
+            <div class="checkbox-group">
+                <p>MOTIVOS</p>
                 <div class="checkbox-container">
-                    <div class="checkbox-group">
-                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="plataforma-instavel" id="plataforma-instavel"><label for="plataforma-instavel">PLATAFORMA INSTÁVEL</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="equipamento-indisponivel" id="equipamento-indisponivel"><label for="equipamento-indisponivel">EQUIPAMENTO INDISPONÍVEL</label></div>
-                    </div>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="sala-em-prova" id="sala-em-prova"><label for="sala-em-prova">SALA EM PROVA/ATIVIDADE</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="equipamento-outros-fins" id="equipamento-outros-fins"><label for="equipamento-outros-fins">EQUIPAMENTO SENDO USADO PARA OUTROS FINS</label></div>
-                    </div>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="professor-nao-usou" id="professor-nao-usou"><label for="professor-nao-usou">PROFESSOR OPTOU POR NÃO USAR O EQUIPAMENTO</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="motivo" value="uso-ok" id="uso-ok"><label for="uso-ok">USO OCORREU TUDO CERTO</label></div>
-                    </div>
+                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="plataforma-instavel" id="plataforma-instavel"><label for="plataforma-instavel">PLATAFORMA INSTÁVEL</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="equipamento-indisponivel" id="equipamento-indisponivel"><label for="equipamento-indisponivel">EQUIPAMENTO INDISPONÍVEL</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="sala-em-prova" id="sala-em-prova"><label for="sala-em-prova">SALA EM PROVA/ATIVIDADE</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="equipamento-outros-fins" id="equipamento-outros-fins"><label for="equipamento-outros-fins">EQUIPAMENTO SENDO USADO PARA OUTROS FINS</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="professor-nao-usou" id="professor-nao-usou"><label for="professor-nao-usou">PROFESSOR OPTOU POR NÃO USAR O EQUIPAMENTO</label></div>
+                    <div class="checkbox-item"><input type="checkbox" name="motivo" value="uso-ok" id="uso-ok"><label for="uso-ok">USO OCORREU TUDO CERTO</label></div>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="observacao">OBSERVAÇÃO</label>
-                <textarea id="observacao" name="observacao" style="text-transform: uppercase;"></textarea>
+                <textarea id="observacao" name="observacao" rows="4"></textarea>
             </div>
-            
-            <div id="status-message" class="hidden"></div>
-            <button type="submit">SALVAR REGISTRO</button>
+
+            <button type="submit">Salvar Controle</button>
         </form>
     </div>
-    <!-- O script agora é um módulo -->
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
