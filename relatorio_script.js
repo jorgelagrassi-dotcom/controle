@@ -44,7 +44,7 @@ function formatarDataSimples(dataString) {
     if (!dataString) return 'N/A';
     const partes = dataString.split('-');
     if (partes.length === 3) {
-        return `${partes?.[2]}/${partes?.[1]}/${partes?.[0]?.slice(-2)}`;
+        return `${partes[2]}/${partes[1]}/${partes[0].slice(-2)}`;
     }
     return dataString; // Retorna o original se o formato não for o esperado
 }
@@ -62,7 +62,7 @@ function exibirRelatorioPorDisciplina(disciplina) {
     tabelaCorpoDisciplina.innerHTML = "";
 
     // Pega os dados da disciplina selecionada
-    const dados = dadosPorDisciplina?.[disciplina];
+    const dados = dadosPorDisciplina[disciplina];
     if (!dados) return;
 
     // Remove o título anterior antes de adicionar o novo
@@ -70,7 +70,7 @@ function exibirRelatorioPorDisciplina(disciplina) {
     if (tituloExistente) {
         tituloExistente.remove();
     }
-
+    
     // Adiciona o título da disciplina
     const tituloDisciplina = document.createElement('h2');
     tituloDisciplina.textContent = `Relatório: ${disciplina}`;
@@ -163,9 +163,7 @@ function criarGraficos(dados) {
     dados.forEach(registro => {
         registro.motivos.forEach(motivo => {
             const motivoFormatado = padronizarMotivo(motivo);
-            contagemMotivosObj = contagemMotivos;
-            contagemMotivosObj = {...contagemMotivosObj, [motivoFormatado]: (contagemMotivosObj?.[motivoFormatado] || 0) + 1};
-            contagemMotivos = contagemMotivosObj;
+            contagemMotivos[motivoFormatado] = (contagemMotivos[motivoFormatado] || 0) + 1;
         });
     });
 
@@ -174,9 +172,7 @@ function criarGraficos(dados) {
     dados.forEach(registro => {
         registro.disciplinas.forEach(disciplina => {
             const disciplinaFormatada = padronizarDisciplina(disciplina);
-            contagemDisciplinasObj = contagemDisciplinas;
-            contagemDisciplinasObj = {...contagemDisciplinasObj, [disciplinaFormatada]: (contagemDisciplinasObj?.[disciplinaFormatada] || 0) + 1};
-            contagemDisciplinas = contagemDisciplinasObj;
+            contagemDisciplinas[disciplinaFormatada] = (contagemDisciplinas[disciplinaFormatada] || 0) + 1;
         });
     });
 
@@ -379,7 +375,7 @@ db.collection("controles").orderBy("data", "desc").onSnapshot((querySnapshot) =>
     // Limpa o objeto de dados por disciplina
     dadosPorDisciplina = {};
     botoesContainer.innerHTML = "";
-
+    
     // Limpa a tabela geral
     tabelaCorpoGeral.innerHTML = "";
 
@@ -404,12 +400,10 @@ db.collection("controles").orderBy("data", "desc").onSnapshot((querySnapshot) =>
         if (dados.disciplinas && dados.disciplinas.length > 0) {
             dados.disciplinas.forEach(disciplina => {
                 const disciplinaFormatada = padronizarDisciplina(disciplina);
-                if (!dadosPorDisciplina?.[disciplinaFormatada]) {
-                    dadosPorDisciplinaObj = dadosPorDisciplina;
-                    dadosPorDisciplinaObj = {...dadosPorDisciplinaObj, [disciplinaFormatada]: []};
-                    dadosPorDisciplina = dadosPorDisciplinaObj;
+                if (!dadosPorDisciplina[disciplinaFormatada]) {
+                    dadosPorDisciplina[disciplinaFormatada] = [];
                 }
-                dadosPorDisciplina?.[disciplinaFormatada]?.push(dados);
+                dadosPorDisciplina[disciplinaFormatada].push(dados);
             });
         }
     });
