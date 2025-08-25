@@ -10,6 +10,8 @@ body {
     margin: 0;
 }
 
+
+
 .container {
     background-color: #ffffff;
     padding: 30px;
@@ -20,7 +22,7 @@ body {
     box-sizing: border-box;
 }
 
-h1, h2 {
+h1 {
     text-align: center;
     color: #333;
     font-size: 1.5em;
@@ -41,9 +43,9 @@ h1, h2 {
 }
 
 label {
-    font-weight: 700;
-    margin-bottom: 8px;
+    font-weight: bold;
     color: #555;
+    margin-bottom: 5px;
     font-size: 0.9em;
 }
 
@@ -58,10 +60,22 @@ textarea {
     border-radius: 5px;
     box-sizing: border-box;
     font-size: 1em;
+    margin-top: 5px;
 }
 
-.form-group {
+textarea {
+    resize: vertical;
+}
+
+.checkbox-group {
     margin-bottom: 20px;
+}
+
+.checkbox-group p {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+    font-size: 0.9em;
 }
 
 .checkbox-container {
@@ -114,3 +128,43 @@ button:hover {
 .button-relatorio:hover {
     background-color: #0056b3;
 }
+
+/* REGRAS DE RESPONSIVIDADE */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 1.2em;
+    }
+
+    .form-group-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .input-group label {
+        font-size: 0.8em;
+    }
+
+    .checkbox-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .checkbox-group p {
+        font-size: 0.8em;
+    }
+
+    button, .button-relatorio {
+        font-size: 1em;
+    }
+}
+
+
+
+
+
+
+
