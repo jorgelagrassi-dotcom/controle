@@ -1,38 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;700&display=swap');
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f2f5;
+    background-color: #eef2f7; /* Fundo mais claro e suave */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Alinha no topo para formulários maiores */
     min-height: 100vh;
     margin: 0;
-}
-
-
-
-.container {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 700px;
+    padding: 30px 20px; /* Mais padding no corpo */
     box-sizing: border-box;
 }
 
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 15px; /* Bordas mais arredondadas */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada */
+    width: 100%;
+    max-width: 800px; /* Largura máxima ligeiramente maior */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* Espaçamento entre os elementos do container */
+}
+
 h1 {
+    font-family: 'Montserrat', sans-serif; /* Fonte diferente para o título principal */
     text-align: center;
-    color: #333;
-    font-size: 1.5em;
-    margin-bottom: 25px;
+    color: #2c3e50; /* Tom de azul escuro */
+    font-size: 2.2em; /* Título maior */
+    margin: 10px 0 30px 0;
     font-weight: 700;
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    color: #34495e; /* Cor para os títulos das seções */
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #aec6cf; /* Linha sutil abaixo do título */
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+
+.form-section {
+    background-color: #f8fbfc; /* Fundo levemente azulado para as seções */
+    border: 1px solid #e0e6ec; /* Borda suave */
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Sombra leve para destacar a seção */
 }
 
 .form-group-row {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     margin-bottom: 20px;
 }
 
@@ -43,9 +66,9 @@ h1 {
 }
 
 label {
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
+    font-weight: 600; /* Peso da fonte levemente mais claro */
+    color: #34495e;
+    margin-bottom: 10px;
     font-size: 0.9em;
 }
 
@@ -55,116 +78,144 @@ input[type="time"],
 select,
 textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 14px; /* Padding maior */
+    border: 1px solid #dcdfe4;
+    border-radius: 8px;
     box-sizing: border-box;
     font-size: 1em;
     margin-top: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff; /* Fundo branco para os inputs */
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus,
+textarea:focus {
+    border-color: #3498db; /* Azul mais forte ao focar */
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Sombra suave ao focar */
+    outline: none;
 }
 
 textarea {
     resize: vertical;
+    min-height: 80px;
 }
 
 .checkbox-group {
     margin-bottom: 20px;
 }
 
-.checkbox-group p {
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 10px;
-    font-size: 0.9em;
-}
-
 .checkbox-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex-direction: column; /* Alterado para empilhar os itens */
+    gap: 10px; /* Espaçamento entre os itens */
 }
 
 .checkbox-item {
     display: flex;
     align-items: center;
+    flex-basis: 100%; /* Garante que cada item ocupe a largura total */
 }
 
 .checkbox-item input[type="checkbox"] {
-    margin-right: 8px;
+    margin-right: 10px;
+    transform: scale(1.2); /* Checkbox maior */
+    accent-color: #27ae60; /* Cor do checkbox */
+}
+
+.checkbox-item label {
+    margin-bottom: 0; /* Remove a margem extra da label do checkbox */
+    font-weight: 400;
+    color: #555;
+    cursor: pointer;
 }
 
 button {
     width: 100%;
-    padding: 12px;
-    background-color: #4CAF50;
+    padding: 15px;
+    background-color: #2ecc71; /* Verde mais vibrante */
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
+    border-radius: 10px;
+    font-size: 1.15em;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #27ae60;
+    transform: translateY(-3px); /* Elevação maior */
+    box-shadow: 0 6px 15px rgba(46, 204, 113, 0.4); /* Sombra ao passar o mouse */
 }
 
 .button-relatorio {
     display: block;
     width: 100%;
-    padding: 12px;
-    background-color: #007BFF;
+    padding: 15px;
+    background-color: #3498db; /* Azul mais vibrante */
     color: white;
     text-align: center;
     text-decoration: none;
-    border-radius: 5px;
-    font-size: 1.1em;
+    border-radius: 10px;
+    font-size: 1.15em;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin-bottom: 25px; /* Mais espaço antes do formulário */
 }
 
 .button-relatorio:hover {
-    background-color: #0056b3;
+    background-color: #2980b9;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
 }
 
 /* REGRAS DE RESPONSIVIDADE */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+        align-items: flex-start;
+    }
+
     .container {
-        padding: 20px;
+        padding: 25px 20px;
+        gap: 20px;
     }
     
     h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    h2 {
         font-size: 1.2em;
+        margin-bottom: 15px;
     }
 
     .form-group-row {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
     }
 
-    .input-group label {
-        font-size: 0.8em;
+    .form-section {
+        padding: 20px;
     }
 
     .checkbox-container {
         flex-direction: column;
-        gap: 8px;
+        gap: 10px;
     }
 
-    .checkbox-group p {
-        font-size: 0.8em;
+    .checkbox-item {
+        flex-basis: 100%;
     }
 
     button, .button-relatorio {
         font-size: 1em;
+        padding: 12px;
     }
 }
-
-
-
-
-
-
-

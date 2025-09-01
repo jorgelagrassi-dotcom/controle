@@ -1,101 +1,132 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatórios de Controles</title>
-    <link rel="stylesheet" href="relatorio_style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relatórios de Controles</title>
+  <link rel="stylesheet" href="relatorio_style.css"/>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <!-- Firebase v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js (opcional para gráficos) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>RELATÓRIO DO USO DAS PLATAFORMAS</h1>
-        
-        
- 	<div id="botoes-disciplinas">
-            <h2>Filtrar por Plataforma</h2>
-            <div class="buttons-container">
-            </div>
-            
-            <div class="botoes-nav-container">
-                <button id="voltar-geral" class="button-back" style="display:none;">Ver Relatório Geral</button>
-                <button id="exibir-graficos" class="button-back">Ver Gráficos</button>
-		<a href="index.html" class="button-back">Voltar para o Formulário</a>
-            </div>
-        </div>
+  <div class="container">
+    <h1>RELATÓRIO DO USO DAS PLATAFORMAS</h1>
 
+    <!-- Botões de plataformas/disciplinas -->
+    <div id="botoes-disciplinas">
+      <h2>Filtrar por Plataforma</h2>
+      <div class="buttons-container" id="buttons-disciplinas"></div>
 
-
-
-
-        <div id="relatorio-geral">
-            <h2>Relatório Geral</h2>
-            <div class="table-container">
-                <table id="tabela-relatorio" class="styled-table">
-                    <thead>
-                        <tr>
-                            <th>Professor</th>
-                            <th>Sala</th>
-                            <th>Data</th>
-                            <th>Disciplina(s)</th>
-                            <th>Situação</th>
-                            <th>Observação</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="relatorio-disciplina-unica" style="display:none;">
-            <div class="table-container">
-                <table id="tabela-disciplina-unica" class="styled-table">
-                    <thead>
-                        <tr>
-                            <th>Professor</th>
-                            <th>Sala</th>
-                            <th>Data</th>
-                            <th>Situação</th>
-                            <th>Observação</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <div id="graficos-container" style="display:none; text-align: center;">
-            <h2>Análise de Dados (Gráficos)</h2>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
-                <div style="max-width: 450px; width: 100%;">
-                    <h3>Motivos Mais Registrados</h3>
-                    <canvas id="graficoMotivosBarras"></canvas>
-                </div>
-                <div style="max-width: 450px; width: 100%;">
-                    <h3>Disciplinas Mais Usadas</h3>
-                    <canvas id="graficoDisciplinasBarras"></canvas>
-                </div>
-                <div style="max-width: 450px; width: 100%;">
-                    <h3>Distribuição dos Motivos</h3>
-                    <canvas id="graficoMotivosPizza"></canvas>
-                </div>
-                <div style="max-width: 450px; width: 100%;">
-                    <h3>Distribuição das Disciplinas</h3>
-                    <canvas id="graficoDisciplinasPizza"></canvas>
-                </div>
-            </div>
-        </div>
-
+      <div class="botoes-nav-container">
+        <button id="voltar-geral" class="button-back" style="display:none;">Ver Relatório Geral</button>
+        <button id="exibir-graficos" class="button-back">Ver Gráficos</button>
         <a href="index.html" class="button-back">Voltar para o Formulário</a>
+      </div>
     </div>
-    <script src="relatorio_script.js"></script>
+
+    <!-- Filtros adicionais -->
+    <div id="filtros-adicionais">
+      <h2>Filtros adicionais</h2>
+
+      <div class="filtro-mes-ano">
+        <label for="filtro-ano">Ano:</label>
+        <select id="filtro-ano">
+          <!-- Opções preenchidas dinamicamente pelo JS -->
+          <option value="">Todos</option>
+        </select>
+
+        <label for="filtro-mes">Mês:</label>
+        <select id="filtro-mes">
+          <option value="">Todos</option>
+          <option value="01">Janeiro</option>
+          <option value="02">Fevereiro</option>
+          <option value="03">Março</option>
+          <option value="04">Abril</option>
+          <option value="05">Maio</option>
+          <option value="06">Junho</option>
+          <option value="07">Julho</option>
+          <option value="08">Agosto</option>
+          <option value="09">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+      </div>
+
+      <label for="filtro-professor">Filtrar por Professor:</label>
+      <input type="text" id="filtro-professor" placeholder="Digite o nome do professor"/>
+
+      <button id="aplicar-filtros" class="button-back">Aplicar Filtros</button>
+      <button id="limpar-filtros" class="button-back">Limpar Filtros</button>
+    </div>
+
+    <!-- Relatório geral -->
+    <div id="relatorio-geral">
+      <h2>Relatório Geral</h2>
+      <div class="table-container">
+        <table id="tabela-relatorio" class="styled-table">
+          <thead>
+            <tr>
+              <th>Professor</th>
+              <th>Sala</th>
+              <th>Data</th>
+              <th>Disciplina(s)</th>
+              <th>Situação</th>
+              <th>Observação</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <!-- Paginação -->
+      <div id="paginacao"></div>
+    </div>
+
+    <!-- Relatório por disciplina -->
+    <div id="relatorio-disciplina-unica" style="display:none;">
+      <h2 id="titulo-disciplina"></h2>
+      <div class="table-container">
+        <table id="tabela-disciplina-unica" class="styled-table">
+          <thead>
+            <tr>
+              <th>Professor</th>
+              <th>Sala</th>
+              <th>Data</th>
+              <th>Situação</th>
+              <th>Observação</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div id="graficos-container" style="display:none; text-align:center;">
+      <h2>Análise de Dados (Gráficos)</h2>
+      <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:40px;">
+        <div style="max-width:450px; width:100%;">
+          <h3>Motivos Mais Registrados</h3>
+          <canvas id="graficoMotivosBarras"></canvas>
+        </div>
+        <div style="max-width:450px; width:100%;">
+          <h3>Disciplinas Mais Usadas</h3>
+          <canvas id="graficoDisciplinasBarras"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <a href="index.html" class="button-back">Voltar para o Formulário</a>
+  </div>
+
+  <script src="relatorio_script.js"></script>
 </body>
 </html>

@@ -1,213 +1,111 @@
-/* Este é o arquivo CSS completo e atualizado para o relatório. */
+/* CSS completo e responsivo para o relatório */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    padding: 20px;
-    margin: 0;
+body{
+  font-family:'Roboto',sans-serif;
+  background:#f0f2f5;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  min-height:100vh;
+  padding:20px;
+  margin:0;
 }
 
-.container {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1200px;
-    box-sizing: border-box;
+.container{
+  background:#fff;
+  padding:30px;
+  border-radius:10px;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+  width:100%;
+  max-width:1200px;
+  box-sizing:border-box;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-    font-size: 1.5em;
-    margin-bottom: 25px;
-    font-weight: 700;
+h1{
+  text-align:center;
+  color:#333;
+  font-size:1.5em;
+  margin-bottom:25px;
+  font-weight:700;
+}
+h2{
+  font-size:1.3em;
+  color:#555;
+  margin-top:30px;
+  margin-bottom:15px;
+  border-bottom:2px solid #ddd;
+  padding-bottom:5px;
 }
 
-h2 {
-    font-size: 1.3em;
-    color: #555;
-    margin-top: 30px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
+/* Botões de plataformas */
+#botoes-disciplinas{ text-align:center; margin-bottom:20px; }
+.buttons-container{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:15px; }
+.button-discipline{
+  background:#f0f0f0; color:#333; border:1px solid #ccc; padding:8px 15px;
+  cursor:pointer; border-radius:5px; font-size:.9em; transition:background-color .3s ease;
+}
+.button-discipline:hover{ background:#d4d4d4; }
+
+/* Botões de navegação */
+.botoes-nav-container{ display:flex; justify-content:center; gap:10px; margin:10px 0 0; }
+.button-back{
+  display:inline-block; padding:10px 20px; background:#007BFF; color:#fff; text-align:center;
+  text-decoration:none; border-radius:5px; font-size:1em; cursor:pointer; transition:background-color .3s ease;
+  border:none; margin-bottom:10px; max-width:250px; width:100%;
+}
+.button-back:hover{ background:#0056b3; }
+
+/* Filtros adicionais */
+#filtros-adicionais{ margin-top:10px; }
+.filtro-mes-ano{
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:15px 0;
+}
+.filtro-mes-ano label{ font-weight:700; color:#555; font-size:.9em; }
+.filtro-mes-ano select{
+  padding:8px 10px; border-radius:6px; border:1px solid #ccc; font-size:.9em; background:#fff; cursor:pointer;
+}
+#filtro-professor{
+  padding:10px; border-radius:6px; border:1px solid #ccc; font-size:.95em; width:100%; max-width:420px; margin:5px 0 15px;
 }
 
-#botoes-disciplinas {
-    text-align: center;
-    margin-bottom: 20px;
+/* Tabelas */
+.table-container{ width:100%; overflow-x:auto; margin-bottom:20px; }
+.styled-table{ width:100%; border-collapse:collapse; margin:0; font-size:.9em; min-width:400px; box-shadow:0 0 20px rgba(0,0,0,.15); }
+.styled-table thead tr{ background:#009879; color:#fff; text-align:left; }
+.styled-table th, .styled-table td{ padding:12px 15px; border:1px solid #ddd; }
+.styled-table tbody tr{ border-bottom:1px solid #ddd; }
+.styled-table tbody tr:nth-of-type(even){ background:#f3f3f3; }
+.styled-table tbody tr:last-of-type{ border-bottom:2px solid #009879; }
+.styled-table tbody tr.active-row{ font-weight:700; color:#009879; }
+
+/* Ações */
+.acoes-celula{ white-space:nowrap; }
+.botao-acao.apagar{
+  background:#dc3545; color:#fff; padding:5px 10px; border-radius:5px; border:none; cursor:pointer;
 }
+.botao-acao.apagar:hover{ background:#c82333; }
 
-.buttons-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 15px;
+/* Paginação */
+#paginacao{
+  display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin:15px 0;
 }
-
-.button-discipline {
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ccc;
-    padding: 8px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 0.9em;
-    transition: background-color 0.3s ease;
+#paginacao button{
+  background:#007BFF; border:none; color:#fff; padding:8px 14px; border-radius:6px; cursor:pointer; font-size:.9em; transition:background-color .3s ease;
 }
+#paginacao button:hover{ background:#0056b3; }
+#paginacao button.ativo{ background:#28a745; }
 
-.button-discipline:hover {
-    background-color: #d4d4d4;
-}
+/* Gráficos */
+#graficos-container{ margin-top:40px; }
 
-.button-back {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border: none;
-    margin-bottom: 20px;
-}
-
-.button-back:hover {
-    background-color: #0056b3;
-}
-
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-    margin-bottom: 20px;
-}
-
-.styled-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0;
-    font-size: 0.9em;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-.styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-    text-align: left;
-}
-
-.styled-table th,
-.styled-table td {
-    padding: 12px 15px;
-    border: 1px solid #dddddd;
-}
-
-.styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-}
-
-.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-}
-
-/* Estilos para os botões de ação (excluir/editar) */
-.acoes-celula {
-    white-space: nowrap;
-}
-
-.botao-acao {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin: 0 5px;
-}
-
-/* CORRIGIDO: Esta regra garante que o botão de apagar seja vermelho */
-.botao-acao.apagar {
-    background-color: #dc3545;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.botao-acao.apagar:hover {
-    background-color: #c82333;
-}
-
-/* Centraliza os botões de navegação e ajusta a largura */
-.botoes-nav-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 10px; /* Adiciona um espaço entre os botões se houver mais de um */
-}
-
-/* Reduz a largura do botão para que ele possa ser centralizado */
-.button-back {
-    display: block;
-    width: 100%;
-    max-width: 250px; /* Define uma largura máxima para o botão */
-    padding: 12px;
-    background-color: #007BFF;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border: none;
-}
-
-.button-back:hover {
-    background-color: #0056b3;
-}
-
-/* Centraliza o botão "Voltar para o Formulário" no final da página */
-.container > .button-back {
-    margin: 20px auto;
-}
-
-/* Estilos para os gráficos */
-#graficos-container {
-    margin-top: 40px;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 1.2em;
-    }
-
-    .styled-table th,
-    .styled-table td {
-        padding: 8px 10px;
-        font-size: 0.8em;
-    }
+/* Responsivo */
+@media (max-width:768px){
+  .container{ padding:15px; }
+  h1{ font-size:1.2em; }
+  .styled-table th, .styled-table td{ padding:8px 10px; font-size:.8em; }
+  #paginacao button{ flex:1 1 20%; min-width:45px; font-size:.85em; padding:6px 10px; }
+  .filtro-mes-ano{ flex-direction:column; align-items:flex-start; }
+  .filtro-mes-ano select{ width:100%; }
 }
